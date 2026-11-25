@@ -21,7 +21,8 @@ dev/2026/11/dev-platform-trends/index.html
 ## 보고서 추가
 
 1. 위 경로에 `index.html`을 만듭니다. 공통 스타일은 보고서 위치에서 `assets/site.css`로 상대 링크합니다. 프로젝트 페이지(`/research/`)에서도 동작하도록 루트 절대 경로(`/assets/...`)는 쓰지 않습니다.
-2. 루트 `reports.json`의 `reports` 배열에 항목을 추가합니다. 목록 페이지는 이 파일을 읽어 카테고리별로 묶고, 날짜는 최신순으로 표시합니다.
+2. 모든 보고서 맨 아래에 작은 글씨 푸터를 넣습니다. 형식은 `최초 생성일 YYYY-MM-DD · 수정일 YYYY-MM-DD · 작성: Grok Bot`입니다.
+3. 루트 `reports.json`의 `reports` 배열에 항목을 추가합니다. 목록 페이지는 이 파일을 읽어 카테고리별로 묶고, `date`가 최신인 항목부터 표시합니다. `created`와 `updated`는 푸터의 최초 생성일, 수정일과 같게 둡니다.
 
 ```json
 {
@@ -30,11 +31,13 @@ dev/2026/11/dev-platform-trends/index.html
   "category": "dev",
   "categoryLabel": "개발",
   "date": "2026-11-25",
+  "created": "2026-11-25",
+  "updated": "2026-11-25",
   "href": "dev/2026/11/report-slug/"
 }
 ```
 
-`href`는 사이트 루트 기준의 상대 경로이며, 앞에 `/`를 붙이지 않습니다.
+`href`는 사이트 루트 기준의 상대 경로이며, 앞에 `/`를 붙이지 않습니다. `date`는 목록 정렬용이며, 보통 `updated`와 같습니다.
 
 ## 배포
 
