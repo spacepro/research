@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026 GIS·지도 플랫폼 기술 트렌드 보고서</title>
+  <meta name="description" content="2025년 말부터 2026년 11월까지 GIS·지도 플랫폼 업계의 핵심 변화를 정리했습니다. OGC·Apache Parquet/Iceberg·GeoParquet 2.0 등 신규 표준, 지구관측 파운데이션 모델과 MCP 기반 GeoAI, 3D Gaussian Splatting, 그리고 QGIS 4.0·GDAL·DuckDB를 중심으로 한 FOSS4G 동향을 다룹니다.">
+  <link rel="canonical" href="https://spacepro.github.io/research/gis/2026/11/gis-map-platform-trends/">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#overview">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="../../../../">research</a>
+    <span class="crumb">gis / 2026 / 11</span>
+  </header>
+
+  <header class="hero wrap" id="top">
+    <p class="kicker">gis · 2026.11.25</p>
+    <h1>2026 GIS·지도 플랫폼 기술 트렌드 보고서</h1>
+    <p class="lede">2025년 말부터 2026년 11월까지 GIS·지도 플랫폼 업계의 핵심 변화를 정리했습니다. OGC·Apache Parquet/Iceberg·GeoParquet 2.0 등 신규 표준, 지구관측 파운데이션 모델과 MCP 기반 GeoAI, 3D Gaussian Splatting, 그리고 QGIS 4.0·GDAL·DuckDB를 중심으로 한 FOSS4G 동향을 다룹니다.</p>
+  </header>
+
+  <div class="layout wrap">
+    <nav class="toc" aria-label="목차">
+      <p class="toc-title">목차</p>
+      <ol>
+        <li><a href="#overview">1. 핵심 요약 및 2026 시장 지표</a></li>
+        <li><a href="#standards">2. 2026년 신규 표준화 기술 동향</a></li>
+        <li><a href="#geoai">3. AI를 활용한 GIS·지도 신기술</a></li>
+        <li><a href="#foss4g">4. FOSS4G 진영의 핵심 움직임</a></li>
+        <li><a href="#industry">5. 산업계·오픈맵·국내 플랫폼 동향</a></li>
+        <li><a href="#comparison">6. 플랫폼별 핵심 업데이트 비교</a></li>
+        <li><a href="#takeaways">7. 실무 적용 시사점</a></li>
+        <li><a href="#sources">8. 참고 출처</a></li>
+      </ol>
+    </nav>
+
+    <article class="report">
+      <section id="overview">
+        <h2>1. 핵심 요약 및 2026 시장 지표</h2>
+        <p class="caption">기준 시점: 2026년 11월 25일 (OGC·Apache·OSGeo·주요 벤더 공식 발표 기준)</p>
+        <p>2026년 GIS와 지도 플랫폼 업계는 세 가지 축으로 재편되고 있습니다. 첫째, <code>GeoParquet 2.0</code>과 <code>Apache Iceberg 1.12</code>가 공간 데이터 타입을 범용 데이터 레이크하우스 표준으로 편입시켰고, 둘째, AI 모델이 현실 세계를 이해하도록 돕는 <code>MCP(Model Context Protocol)</code> 지도 도구와 지구관측 임베딩 파운데이션 모델이 상용화되었으며, 셋째, <code>QGIS 4.0</code>의 Qt6 세대교체와 서버리스 <code>Cloud-Native Geospatial</code> 스택이 FOSS4G 생태계를 주도하고 있습니다.</p>
+        <div class="metrics">
+          <article class="metric success">
+            <span class="value">2026.11.24</span>
+            <span class="label">GeoParquet 2.0 공식 출시</span>
+            <span class="detail">Parquet 2.11 네이티브 GEOMETRY·GEOGRAPHY 타입 기반</span>
+          </article>
+          <article class="metric success">
+            <span class="value">16배 ↓</span>
+            <span class="label">AlphaEarth 임베딩 용량</span>
+            <span class="detail">전 지구 10m 격자 요약 시 기존 대비 저장 공간 절감</span>
+          </article>
+          <article class="metric">
+            <span class="value">25.44억</span>
+            <span class="label">Overture 건물 피처 수</span>
+            <span class="detail">2026-11-18.0 릴리스 기준 (장소 POI 9,030만 개)</span>
+          </article>
+          <article class="metric">
+            <span class="value">QGIS 4.4</span>
+            <span class="label">QGIS 4.x 최신 릴리스</span>
+            <span class="detail">2026.03 4.0(Qt6 전환) 출시 후 2026.11.20 4.4.0 도달</span>
+          </article>
+        </div>
+        <aside class="callout">
+          <strong>한눈에 보는 2026년 지형 변화</strong>
+          <p>과거 GIS가 전용 파일(Shapefile)과 무거운 서버(WMS/WFS) 중심이었다면, 2026년에는 Parquet·Iceberg·DuckDB·PMTiles 기반의 객체 스토리지 네이티브 파이프라인과 AI 에이전트용 MCP·GERS ID·3D Gaussian Splatting(glTF/3D Tiles 2.0)이 표준으로 수렴하고 있습니다.</p>
+        </aside>
+      </section>
+
+      <section id="standards">
+        <h2>2. 2026년 신규 표준화 기술 동향 (승인 완료 vs 진행 중)</h2>
+        <p class="caption">공식 발행·승인된 표준과 비준·초안 단계 기술을 구분해 정리했습니다.</p>
+        <p>2026년 표준화의 최대 이정표는 공간 타입이 별도 GIS 포맷을 넘어 메인스트림 데이터 포맷(<code>Parquet</code>, <code>Iceberg</code>, <code>DuckDB</code>)의 일급 시민으로 들어온 것과, GeoJSON의 한계를 보완한 <code>OGC JSON-FG</code>·포인트 클라우드 압축 <code>LAZ 1.4</code>·위성영상 처리 API <code>openEO</code>의 공식 승인입니다. 한편 <code>3D Tiles 2.0</code>과 <code>glTF 3D Gaussian Splatting</code>, <code>GeoZarr</code>는 비준 및 초안 단계가 진행 중입니다.</p>
+        <div class="controls">
+          <div class="segmented" role="radiogroup" aria-label="표준 상태 필터">
+            <button type="button" role="radio" aria-checked="true" data-std-filter="all">전체 (12)</button>
+            <button type="button" role="radio" aria-checked="false" data-std-filter="approved_2026">2026년 확정 (6)</button>
+            <button type="button" role="radio" aria-checked="false" data-std-filter="approved_2025">2025년 확정 (3)</button>
+            <button type="button" role="radio" aria-checked="false" data-std-filter="in_progress">진행·비준 중 (3)</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="platform-table" id="standards-table">
+            <thead>
+              <tr>
+                <th scope="col">표준 · 규격</th>
+                <th scope="col">제정 주체</th>
+                <th scope="col">상태</th>
+                <th scope="col">시기</th>
+                <th scope="col">핵심 내용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-status="approved_2026">
+                <td>GeoParquet 2.0</td>
+                <td>Cloud-Native Geo / Parquet</td>
+                <td><span class="pill success">2026년 확정</span></td>
+                <td>2026.11.24</td>
+                <td>Apache Parquet 2.11 네이티브 GEOMETRY·GEOGRAPHY 타입 기반 재편. 별도 bbox 컬럼 없이 Row Group 공간 통계 필터링 지원.</td>
+              </tr>
+              <tr data-status="approved_2026">
+                <td>Apache Iceberg 1.12.0 (Geospatial)</td>
+                <td>Apache Iceberg</td>
+                <td><span class="pill success">2026년 확정</span></td>
+                <td>2026.09.29</td>
+                <td>데이터 레이크하우스 테이블 포맷에 geometry·geography 타입 읽기·쓰기 추가(Parquet·Avro 매핑, Spark 4.1 엔드투엔드 지원).</td>
+              </tr>
+              <tr data-status="approved_2026">
+                <td>OGC LAZ 1.4 Community Standard</td>
+                <td>OGC</td>
+                <td><span class="pill success">2026년 확정</span></td>
+                <td>2026.09.03</td>
+                <td>LAS 1.4 LiDAR 포인트 클라우드 무손실 압축 포맷을 OGC 커뮤니티 표준으로 공식 발행. 청크·레이어별 랜덤 액세스 지원.</td>
+              </tr>
+              <tr data-status="approved_2026">
+                <td>OGC JSON-FG (Features &amp; Geometries JSON)</td>
+                <td>OGC</td>
+                <td><span class="pill success">2026년 확정</span></td>
+                <td>2026.05.21</td>
+                <td>GeoJSON 하위 호환 확장 표준. WGS84 외 다양한 CRS, 시간 속성, 3D 솔리드·프리즘·원호 지오메트리 및 스키마 선언 지원.</td>
+              </tr>
+              <tr data-status="approved_2026">
+                <td>OGC openEO API 1.2.0 Community Standard</td>
+                <td>OGC</td>
+                <td><span class="pill success">2026년 확정</span></td>
+                <td>2026.05.12</td>
+                <td>대규모 지구관측(EO) 위성영상 클라우드 백엔드를 언어·벤더 독립적으로 호출하는 통합 HTTP API 표준.</td>
+              </tr>
+              <tr data-status="approved_2026">
+                <td>DuckDB 1.5.0 코어 GEOMETRY 타입</td>
+                <td>DuckDB</td>
+                <td><span class="pill success">2026년 확정</span></td>
+                <td>2026.03.09</td>
+                <td>기존 Spatial 확장 전용이던 GEOMETRY를 DB 코어 내장 타입으로 승격(CRS 메타데이터 포함), 타 확장·Parquet 호환성 강화.</td>
+              </tr>
+              <tr data-status="approved_2025">
+                <td>OGC STAC Community Standards</td>
+                <td>OGC</td>
+                <td><span class="pill">2025년 확정</span></td>
+                <td>2025.10.28</td>
+                <td>위성·드론·포인트클라우드·ML 라벨 등 시공간 자산 메타데이터 검색(Item/Catalog/Collection 및 API) 커뮤니티 표준 채택.</td>
+              </tr>
+              <tr data-status="approved_2025">
+                <td>OGC API – DGGS Part 1: Core</td>
+                <td>OGC</td>
+                <td><span class="pill">2025년 확정</span></td>
+                <td>2025.10.24</td>
+                <td>이산 글로벌 그리드 시스템(DGGS) 기반 영역·시간·해상도별 데이터 조회 API 및 DGGS-JSON / CQL2 질의 공식 표준.</td>
+              </tr>
+              <tr data-status="approved_2025">
+                <td>OGC API – Connected Systems / Records / IndoorGML 2.0</td>
+                <td>OGC</td>
+                <td><span class="pill">2025년 확정</span></td>
+                <td>2025.07~08</td>
+                <td>동적 IoT·센서 연동(Connected Systems, 2025.07), 카탈로그 검색(Records Part 1, 2025.07), 실내 내비게이션(IndoorGML 2.0, 2025.08) 승인.</td>
+              </tr>
+              <tr data-status="in_progress">
+                <td>OGC 3D Tiles 2.0</td>
+                <td>OGC / Cesium</td>
+                <td><span class="pill warning">비준 진행 중</span></td>
+                <td>2026.06~11</td>
+                <td>2026년 7월 공개 의견 수렴 후 비준 투표 진행 중. glTF 2.1 베이스라인, 3D Gaussian Splats, Voxel, 시계열 동적 콘텐츠, 3D 벡터 포함.</td>
+              </tr>
+              <tr data-status="in_progress">
+                <td>Khronos glTF 3D Gaussian Splatting 확장</td>
+                <td>Khronos / OGC / Esri / Cesium / Niantic</td>
+                <td><span class="pill warning">초안 개발 중</span></td>
+                <td>2025.08~2026</td>
+                <td>KHR_gaussian_splatting 및 MIT 라이선스 SPZ 압축(PLY 대비 최대 90% 축소) 확장 KHR_gaussian_splatting_compression_spz 제정 진행.</td>
+              </tr>
+              <tr data-status="in_progress">
+                <td>OGC GeoZarr 표준</td>
+                <td>OGC GeoZarr SWG</td>
+                <td><span class="pill warning">작업 진행 중</span></td>
+                <td>2024~2026</td>
+                <td>COG의 다차원·시계열 대안인 Zarr 기반 공간정보 규약. STAC-Zarr 연계 스프린트 및 OpenLayers 10.8 실험 지원 등 생태계 확산 중.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="bullets">
+          <li>GeoParquet 2.0 핵심 변화: 2025년 3월 Apache Parquet 2.11에 도입된 GEOMETRY·GEOGRAPHY 논리 타입을 토대로 2026년 11월 24일 정식 출시되었습니다. 1.x의 추가 <code>bbox</code> 컬럼 없이도 Row Group 공간 통계로 빠른 필터링이 가능하며, 일반 Parquet 엔진도 공간 컬럼을 직접 인식합니다. (<a href="https://cloudnativegeo.org/blog/2026/11/geoparquet-2-0-released/">https://cloudnativegeo.org/blog/2026/11/geoparquet-2-0-released/</a>)</li>
+          <li>OGC 2026년 공식 발행 표준 3종: 5월 <code>openEO API 1.2.0</code>(지구관측 클라우드 처리 표준), 5월 <code>JSON-FG</code>(다중 CRS·시간·3D 솔리드 확장 GeoJSON), 9월 <code>LAZ 1.4</code>(LiDAR 무손실 랜덤 액세스 압축)가 공식 표준/커뮤니티 표준으로 발표되었습니다. (<a href="https://www.ogc.org/announcement/ogc-releases-the-features-and-geometries-json-json-fg-standard/">https://www.ogc.org/announcement/ogc-releases-the-features-and-geometries-json-json-fg-standard/</a>)</li>
+          <li>3D 표준화 경쟁과 협력: Khronos Group, OGC, Esri, Cesium(Bentley), Niantic Spatial은 MIT 라이선스 <code>SPZ</code> 압축(PLY 대비 최대 90% 축소) 기반 <code>KHR_gaussian_splatting</code> glTF 확장을 공동 개발 중이며, 이를 포함한 <code>OGC 3D Tiles 2.0</code>은 2026년 하반기 비준 투표 단계에 있습니다. (<a href="https://www.khronos.org/blog/khronos-ogc-and-geospatial-leaders-add-3d-gaussian-splats-to-the-gltf-asset-standard">https://www.khronos.org/blog/khronos-ogc-and-geospatial-leaders-add-3d-gaussian-splats-to-the-gltf-asset-standard</a>)</li>
+        </ul>
+      </section>
+
+      <section id="geoai">
+        <h2>3. AI를 활용한 GIS·지도 신기술</h2>
+        <p class="caption">파운데이션 임베딩 모델, 에이전트용 MCP, 3D 가우시안 스플래팅이 핵심 축입니다.</p>
+        <div class="trends">
+          <article class="trend">
+            <div class="trend-top">
+              <p class="lead">지구관측 AI</p>
+              <span class="pill success">파운데이션 모델</span>
+            </div>
+            <h3>위성·공간 임베딩 파운데이션 모델 (AlphaEarth · Earth AI · Prithvi · Clay)</h3>
+            <p>Google DeepMind의 AlphaEarth Foundations는 광학·레이더·LiDAR·기후 데이터를 결합해 전 지구 육지·연안을 10m×10m 격자 임베딩으로 압축(저장 용량 16배 절감, 평균 오차 24% 감소)해 Earth Engine에 공개했습니다. Google Earth AI는 Gemini 공간 추론 에이전트로 다중 모델을 오케스트레이션하며, 오픈 진영에서는 NASA/IBM의 Prithvi-EO-2.0과 Development Seed의 Clay가 활발히 쓰입니다.</p>
+          </article>
+          <article class="trend">
+            <div class="trend-top">
+              <p class="lead">에이전트 × MCP</p>
+              <span class="pill success">MCP 표준화</span>
+            </div>
+            <h3>AI 에이전트의 '위치 맹점(Blind Spot)'을 해결하는 지도 MCP 서버</h3>
+            <p>Google은 Maps Grounding Lite를 <code>Maps Experience agent tools</code>로 정비해 호스팅 MCP(mapstools.googleapis.com/mcp)와 REST API를 제공합니다. Mapbox는 2026년 9월 BUILD에서 33개 도구 오픈소스 MCP 서버, Notion·Figma MCP 커넥터, Maps/Navigation SDK용 Agent Toolkit을 공개했습니다. 학계와 ISO/TC 211에서도 OGC API를 MCP 도구로 매핑하는 GeoMCP·OpenGA 프레임워크가 논의되고 있습니다.</p>
+          </article>
+          <article class="trend">
+            <p class="lead">실시간 예측·검색</p>
+            <h3>자연어 공간 검색, AI 교통 예측(Traffic 2.0), 대화형 공간 분석 에이전트</h3>
+            <p>Mapbox는 45,000+ 앱의 실시간 텔레메트리를 학습해 2.5시간 앞 교통을 예측하고 98% ETA 정확도를 내는 Traffic 2.0과 대화형 Search Box NLQ를 선보였습니다. Foursquare는 2026년 2월 자연어로 공간 분석을 수행하는 FSQ Spatial Agent를 출시했습니다.</p>
+          </article>
+          <article class="trend">
+            <p class="lead">3D 리얼리티 캡처</p>
+            <h3>3D Gaussian Splatting의 상용 GIS 분석 편입</h3>
+            <p>단순 3D 웹 뷰어를 넘어 분석 단계로 진입했습니다. Esri ArcGIS Enterprise 12.2 Scene Viewer는 가우시안 스플랫의 단면·가시선·고도 프로파일 분석을 지원하고, ArcGIS Pro 3.8은 스플랫 데이터 내부의 3D 객체를 AI로 탐지해 공간에 배치할 수 있습니다. XR Viewer에는 음성 AI 어시스턴트(베타)가 추가되었습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="foss4g">
+        <h2>4. FOSS4G 진영의 가장 활발한 움직임</h2>
+        <p class="caption">FOSS4G 2025 오클랜드(2025.11)와 FOSS4G 2026 히로시마(2026.08~09)를 관통하는 핵심 흐름</p>
+        <p>FOSS4G 진영은 2025년 11월 뉴질랜드 오클랜드 대회에 이어 2026년 8월 30일~9월 5일 일본 히로시마에서 글로벌 콘퍼런스(<code>FOSS4G 2026 Hiroshima</code>)를 개최했습니다. 2026년 커뮤니티 에너지는 크게 세 가지, 즉 <code>QGIS 4.x</code> 세대교체, <code>GDAL·DuckDB·GeoParquet·PMTiles</code> 기반 서버리스 스택, 그리고 브라우저·웹 지도 엔진(<code>MapLibre</code>, <code>OpenLayers</code>, <code>Leaflet 2.0</code>)의 고도화에 집중되었습니다.</p>
+        <div class="flow flow-chain" aria-label="개방형 공간데이터에서 클라이언트까지의 흐름">
+          <div class="node terminal s0">
+            <strong>개방형 공간데이터</strong>
+            <span>Overture(GERS) · OSM · STAC</span>
+          </div>
+          <p class="arrow">클라우드 저장</p>
+          <div class="node s0">
+            <strong>객체 스토리지 포맷</strong>
+            <span>GeoParquet 2.0 · COG · GeoZarr</span>
+          </div>
+          <p class="arrow">원격 Range 쿼리</p>
+          <div class="node s1">
+            <strong>서버리스 분석·변환</strong>
+            <span>DuckDB 1.5 · GDAL 3.13 · PostGIS 3.6</span>
+          </div>
+          <p class="arrow">타일·도구 노출</p>
+          <div class="node s2">
+            <strong>타일·API 전송</strong>
+            <span>PMTiles(S3/CDN) · OGC API · MCP</span>
+          </div>
+          <p class="arrow">렌더링·추론</p>
+          <div class="node terminal s2">
+            <strong>클라이언트·에이전트</strong>
+            <span>QGIS 4.x · MapLibre 5.x · AI 에이전트</span>
+          </div>
+        </div>
+        <ul class="bullets">
+          <li>QGIS 4.0 Norrköping (2026.03) → QGIS 4.4.0 (2026.11): 수년간 준비한 Qt5→Qt6 전면 마이그레이션이 2026년 3월 결실을 맺으며 High-DPI 네이티브 렌더링, 멀티스크린 지원, 100개 이상의 신기능을 탑재했습니다. 3.40 LTR 유지보수와 병행하며 플러그인 생태계의 Qt6 전환이 2026년 최대 커뮤니티 과제였습니다. (<a href="https://blog.qgis.org/2026/03/09/qgis-4.0-norrk%C3%B6ping-is-released/">https://blog.qgis.org/2026/03/09/qgis-4.0-norrk%C3%B6ping-is-released/</a>)</li>
+          <li>GDAL 3.11~3.13 &amp; DuckDB 1.5의 결합: GDAL 3.11에서 차세대 통합 <code>gdal</code> CLI와 DuckDB ADBC 드라이버가 도입되었고, 3.12에서 Parquet 네이티브 지오메트리 지원, 3.13에서 벡터 CLI 연산(dissolve, hulls 등)이 확장되었습니다. DuckDB는 1.5.0(2026.03)에서 <code>GEOMETRY</code>를 코어 타입으로 내장했고, <code>vgi-mvt</code> 등으로 DuckDB 테이블을 곧바로 <code>PMTiles</code>로 내보내는 워크플로가 확산 중입니다.</li>
+          <li>PostGIS 3.6.2 &amp; 웹 지도 엔진: PostGIS 3.6.2(2026.02)는 PostgreSQL 18(베타) 호환과 MVT 확장, SFCGAL 2.2 3D, 구면 연산용 <code>pgSphere</code>를 지원합니다. 웹에서는 Mapbox 라이선스 제한의 표준 대안인 <code>MapLibre GL JS 5.x</code>가 v6을 준비 중이며, FOSS4G 2026에서는 <code>DuckDB + MapLibre + AI</code> 조합의 브라우저 네이티브 분석 시각화와 <code>Leaflet 2.0</code> 공식 소식이 주목받았습니다.</li>
+          <li>GeoServer Cloud · pygeoapi · Portolan: 기존 모놀리식 GeoServer를 넘어 클라우드 네이티브 GeoServer Cloud 3.0(GeoParquet 2.0 읽기 지원), 경량 OGC API 구현체 <code>pygeoapi</code>, 그리고 GeoParquet·PMTiles·COG·STAC 발행을 묶는 서버리스 SDI 프로젝트 <code>Portolan</code>이 부상하고 있습니다.</li>
+        </ul>
+      </section>
+
+      <section id="industry">
+        <h2>5. 산업계 · Overture Maps · 국내 플랫폼 동향</h2>
+        <p class="caption">오픈 데이터(Overture 2026-11-18)와 국내 공간정보·빅테크 움직임</p>
+        <div class="chart-grid">
+          <figure class="chart">
+            <figcaption>Overture 건물 출처 (억 단위)</figcaption>
+            <ul class="bars">
+              <li>
+                <div class="bar-head"><span>Google Open Buildings</span><strong>8.99억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                <p class="bar-meta">약 35.3%</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>OpenStreetMap</span><strong>7.12억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:79.141849%"></div></div>
+                <p class="bar-meta">약 28.0%</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Microsoft ML Buildings</span><strong>6.88억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:76.549496%"></div></div>
+                <p class="bar-meta">약 27.1%</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Zenodo (3D-GloBFP 등)</span><strong>2.12억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:23.580744%"></div></div>
+                <p class="bar-meta">약 8.3%</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Esri Community Maps</span><strong>2,046만</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:2.275271%"></div></div>
+                <p class="bar-meta">2026.11 +35.4% 증가</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>스페인 IGN · 밴쿠버 등</span><strong>1,227만</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:1.364456%"></div></div>
+              </li>
+            </ul>
+          </figure>
+          <figure class="chart alt">
+            <figcaption>Overture 주제별 피처 수</figcaption>
+            <ul class="bars">
+              <li>
+                <div class="bar-head"><span>Buildings (건물·부속)</span><strong>25.49억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                <p class="bar-meta">건물 25.44억 + 파트 467만</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Transportation (OSM+TomTom)</span><strong>7.81억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:30.622254%"></div></div>
+                <p class="bar-meta">도로 9,387만 km 포함</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Base (인프라·수계·토지피복 등)</span><strong>4.86억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:19.05171%"></div></div>
+                <p class="bar-meta">6개 하위 레이어 합산</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Addresses (주소, 알파)</span><strong>4.75억</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:18.643675%"></div></div>
+                <p class="bar-meta">street 커버리지 98.5%</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Places (장소 POI)</span><strong>9,030만</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:3.542843%"></div></div>
+                <p class="bar-meta">Meta 6,127만 · BrightQuery 1,677만</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Divisions (행정구역)</span><strong>589만</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:0.231089%"></div></div>
+                <p class="bar-meta">영역·경계 포함</p>
+              </li>
+            </ul>
+          </figure>
+        </div>
+        <p>Overture Maps Foundation(AWS·Meta·Microsoft·TomTom 주도, Esri·Niantic·OGC 등 참여)은 2026년 11월 18일 <code>2026-11-18.0</code> 데이터와 Pydantic 기반 Python SDK를 포함한 <code>v2.0.0</code> 스키마를 공개했습니다. 건물 데이터만 25.44억 개, 장소(Places) 9,030만 개, 주소 4.75억 개 규모이며, 영구 식별자 <code>GERS</code>를 통해 서로 다른 지도·AI 파이프라인 간 현실 객체 연결의 공용 키 역할을 하고 있습니다. 출처: <a href="https://docs.overturemaps.org/blog/2026/11/18/release-notes/">https://docs.overturemaps.org/blog/2026/11/18/release-notes/</a></p>
+        <dl class="props props-wide">
+          <div>
+            <dt>V-World (국토교통부)</dt>
+            <dd>2025년 말 자연어 기반 <code>Geo-AI</code> 검색·지도 시각화 도입 착수에 이어 2026년 초 3D 지도·AI 공간분석·19종 2D 분석 기능을 일반 국민과 민간에 개방하며 공공 디지털트윈 플랫폼 전환 가속</dd>
+          </div>
+          <div>
+            <dt>네이버 지도</dt>
+            <dd>국토지리정보원과 고정밀 국가 공간정보 구축 협력 추진. 디지털트윈·실내 AR 내비게이션·플라잉뷰 3D 등 실감형 공간 기술과 지도를 결합</dd>
+          </div>
+          <div>
+            <dt>카카오맵</dt>
+            <dd>AI 기반 장소 추천과 초정밀 대중교통·실내 지도·축제/이벤트 특화 지도로 생활 밀착형 차별화 강화</dd>
+          </div>
+          <div>
+            <dt>라이선스·개발자 진입장벽</dt>
+            <dd>Mapbox는 2026.09 결제 카드 없이 이메일 인증만으로 API 토큰을 발급받는 <code>Demo Access</code>를 도입해 AI 바이브 코딩 수요 흡수에 나섬. 오픈 진영은 MapLibre·PMTiles·Overture로 상용 벤더 종속을 줄이는 흐름 유지</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="comparison">
+        <h2>6. 주요 진영·플랫폼별 업데이트 비교</h2>
+        <p class="caption">영역을 선택해 상용·AI 플랫폼, FOSS4G, 국내 동향을 필터링할 수 있습니다.</p>
+        <div class="controls">
+          <div class="segmented" role="radiogroup" aria-label="플랫폼 범위 필터">
+            <button type="button" role="radio" aria-checked="true" data-scope-filter="all">전체 (8)</button>
+            <button type="button" role="radio" aria-checked="false" data-scope-filter="ai_commercial">글로벌·AI·오픈맵 (4)</button>
+            <button type="button" role="radio" aria-checked="false" data-scope-filter="foss4g">FOSS4G 진영 (3)</button>
+            <button type="button" role="radio" aria-checked="false" data-scope-filter="korea">국내 플랫폼 (1)</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="platform-table" id="platform-table">
+            <thead>
+              <tr>
+                <th scope="col">플랫폼 · 프로젝트</th>
+                <th scope="col">구분</th>
+                <th scope="col">2025~2026 핵심 업데이트</th>
+                <th scope="col">AI · 표준 연동</th>
+                <th scope="col">산업적 의미</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-scope="ai_commercial">
+                <td>Google (Earth AI · AlphaEarth · Maps MCP)</td>
+                <td>글로벌 빅테크 · GeoAI</td>
+                <td>AlphaEarth 10m 전 지구 임베딩 공개, Earth AI Gemini 공간 추론 에이전트</td>
+                <td>Maps Experience agent tools(구 Grounding Lite) MCP(mapstools.googleapis.com)</td>
+                <td>위성·인구·실시간 장소 데이터를 Gemini 에이전트·MCP로 직접 연결</td>
+              </tr>
+              <tr data-scope="ai_commercial">
+                <td>Mapbox (BUILD 2026)</td>
+                <td>상용 지도 플랫폼</td>
+                <td>Traffic 2.0(2.5시간 AI 예측), Places API 프리뷰, CLI &amp; 무결제 Demo Access</td>
+                <td>오픈소스 MCP 서버(33도구), Notion·Figma MCP 커넥터, Agent Toolkit</td>
+                <td>45,000+ 앱 텔레메트리 기반 에이전틱 매핑 엔진과 개발자 바이브코딩 진입장벽 완화</td>
+              </tr>
+              <tr data-scope="ai_commercial">
+                <td>Esri (ArcGIS 12.2 / Pro 3.8)</td>
+                <td>엔터프라이즈 GIS</td>
+                <td>Enterprise 12.2 베타 AI 어시스턴트 12종, Scene Viewer 가우시안 스플랫 분석</td>
+                <td>ArcGIS Pro 3.8 스플랫 3D 객체 탐지, Khronos glTF/3D Tiles 표준 참여</td>
+                <td>포토리얼리스틱 3D(Gaussian Splat)를 단순 뷰어를 넘어 분석·탐지 워크플로로 편입</td>
+              </tr>
+              <tr data-scope="ai_commercial">
+                <td>Foursquare / Overture Maps</td>
+                <td>공간데이터 · 오픈맵</td>
+                <td>FSQ Spatial Agent(2026.02), Overture 2026-11-18(건물 25.44억·장소 9,030만)</td>
+                <td>Overture 스키마 v2.0.0(Pydantic SDK), GERS 영구 ID, GeoParquet·PMTiles 배포</td>
+                <td>AI 파이프라인의 현실 세계 엔티티 그라운딩 표준(GERS) 및 무료 오픈 베이스맵 확산</td>
+              </tr>
+              <tr data-scope="foss4g">
+                <td>QGIS 4.0 ~ 4.4</td>
+                <td>FOSS4G 핵심</td>
+                <td>4.0 Norrköping 출시(2026.03, Qt6 전면 전환) 후 4.4.0(2026.11)까지 100+ 기능 추가</td>
+                <td>Qt6 네이티브 High-DPI·성능 개선, GDAL 3.12+ 기반 GeoParquet 2.0 읽기</td>
+                <td>데스크톱 GIS 최대 커뮤니티의 아키텍처 세대교체(플러그인 Qt6 마이그레이션 진행)</td>
+              </tr>
+              <tr data-scope="foss4g">
+                <td>GDAL 3.11 ~ 3.13 &amp; PostGIS 3.6.2</td>
+                <td>FOSS4G 엔진</td>
+                <td>GDAL 통합 gdal CLI·DuckDB ADBC 드라이버·벡터 연산 확장, PostGIS 3.6.2(2026.02)</td>
+                <td>Parquet 네이티브 GEOMETRY 지원(3.12+), PG 18·SFCGAL 2.2·pgSphere 지원</td>
+                <td>클라우드 네이티브 포맷(GeoParquet/COG/DuckDB)과 전통 DB 엔진의 성능·호환성 강화</td>
+              </tr>
+              <tr data-scope="foss4g">
+                <td>DuckDB · MapLibre · OpenLayers</td>
+                <td>웹·분석 스택</td>
+                <td>DuckDB 1.5 코어 GEOMETRY, MapLibre GL JS 5.x(v6 준비), OpenLayers 10.8</td>
+                <td>PMTiles(vgi-mvt)·브라우저 내 DuckDB+MapLibre+AI 시각화(FOSS4G 2026 주제)</td>
+                <td>타일 서버 없는 정적 S3/CDN 기반 분석·시각화(Serverless/Cloud-Native GIS) 대중화</td>
+              </tr>
+              <tr data-scope="korea">
+                <td>한국 플랫폼 (V-World · 네이버 · 카카오)</td>
+                <td>국내 공간정보</td>
+                <td>V-World Geo-AI 자연어 검색·3D/2D 19종 민간 개방(2025~2026), 네이버·국토지리정보원 협력</td>
+                <td>디지털트윈·실내 AR·플라잉뷰 3D(네이버), AI 추천·초정밀 대중교통/실내 지도(카카오)</td>
+                <td>공공 공간정보의 AI·민간 개방 가속 및 국내 빅테크의 3D·실내·생활밀착형 AI 지도 고도화</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="takeaways">
+        <h2>7. 실무·제품 관점 시사점</h2>
+        <p class="caption">신규 GIS·위치 기반 제품 설계 시 고려해야 할 아키텍처 선택지</p>
+        <ol class="steps steps-labeled">
+          <li>
+            <h3>1) 저장·분석 포맷은 GeoParquet 2.0 + DuckDB 1.5 + PMTiles 조합 검토</h3>
+            <p>대규모 공간 분석을 위해 무거운 전용 GIS 서버를 먼저 세우기보다, 객체 스토리지(S3) 위 GeoParquet 2.0(또는 호환성이 필요하면 1.1)과 DuckDB, 웹 타일 서빙용 PMTiles + MapLibre 조합이 비용과 속도 면에서 압도적으로 유리합니다.</p>
+          </li>
+          <li>
+            <h3>2) AI 에이전트 연동은 MCP 서버 및 GERS 기반 그라운딩을 기본 설계로</h3>
+            <p>지도 UI와 별도로 LLM/에이전트가 공간 맥락을 조회할 수 있도록 Google Maps Experience agent tools(MCP), Mapbox MCP 서버, 또는 자체 OGC API 래퍼 MCP를 설계하고, 다중 데이터 결합 시 Overture GERS ID를 연결 키로 활용하면 유지보수성이 크게 높아집니다.</p>
+          </li>
+          <li>
+            <h3>3) 3D·디지털트윈은 glTF + SPZ 및 3D Tiles 2.0 호환성 확보</h3>
+            <p>현장 스캔·드론 데이터를 3D Gaussian Splatting으로 구축할 때는 독자 PLY 파이프라인에 갇히지 않도록 Khronos <code>KHR_gaussian_splatting</code> / SPZ(MIT)와 OGC 3D Tiles 2.0 흐름에 맞추는 것이 장기 호환에 유리합니다.</p>
+          </li>
+          <li>
+            <h3>4) 데스크톱·ETL은 QGIS 4.x 및 GDAL 3.12+ 전환 일정 반영</h3>
+            <p>QGIS 4.0(Qt6) 전환에 따라 사내 커스텀 파이썬 플러그인의 Qt6 호환성 점검이 필요하며(안정 운영 시 3.40 LTR과 병행 검증), ETL 스크립트는 새로운 통합 <code>gdal</code> CLI와 Arrow/Parquet 파이프라인으로 단순화할 수 있습니다.</p>
+          </li>
+        </ol>
+        <div class="proscons">
+          <div class="pros">
+            <h4>오픈·클라우드 네이티브 GIS 스택 채택 이점</h4>
+            <ul>
+              <li>S3 + GeoParquet + PMTiles + MapLibre 조합으로 서버리스·무과금에 가까운 타일 서빙 가능</li>
+              <li>Overture Maps GERS·오픈EO·STAC·OGC API 표준으로 특정 상용 벤더 락인 최소화</li>
+              <li>DuckDB 1.5 코어 GEOMETRY와 Iceberg 1.12로 비GIS 데이터 엔지니어링 팀과 협업 장벽 해소</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>현 시점 유의할 한계·과제</h4>
+            <ul>
+              <li>GeoParquet 2.0의 GEOGRAPHY 타입 및 일부 도구(GeoPandas 1.2 등)의 네이티브 메타데이터 없는 파일 지원은 아직 성숙 단계</li>
+              <li>3D Tiles 2.0과 glTF Gaussian Splatting 확장은 비준·초안 진행 중이라 툴 간 세부 호환성 검증 필요</li>
+              <li>QGIS 4.x 초기에는 기존 Qt5 기반 서드파티 플러그인 호환성 이슈 가능성 존재</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <section id="sources">
+        <h2>8. 참고 출처</h2>
+        <ul class="links">
+          <li>
+            <a href="https://cloudnativegeo.org/blog/2026/11/geoparquet-2-0-released/">
+              <span class="link-title">GeoParquet 2.0 Released (Cloud-Native Geospatial Forum)</span>
+              <span class="link-meta">cloudnativegeo.org · 2026.11.24</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://iceberg.apache.org/blog/apache-iceberg-1.12.0-release/">
+              <span class="link-title">Apache Iceberg 1.12.0 Release (Geospatial Types)</span>
+              <span class="link-meta">iceberg.apache.org · 2026.09.29</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.ogc.org/announcement/ogc-releases-the-features-and-geometries-json-json-fg-standard/">
+              <span class="link-title">OGC Releases JSON-FG Standard (2026.05) &amp; LAZ 1.4 / openEO</span>
+              <span class="link-meta">ogc.org · 2026.05~09</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.khronos.org/blog/khronos-ogc-and-geospatial-leaders-add-3d-gaussian-splats-to-the-gltf-asset-standard">
+              <span class="link-title">OGC 3D Tiles 2.0 Public Comment &amp; Khronos glTF Gaussian Splats</span>
+              <span class="link-meta">khronos.org / ogc.org · 2025.08 / 2026.06</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/">
+              <span class="link-title">AlphaEarth Foundations &amp; Google Earth AI</span>
+              <span class="link-meta">deepmind.google / research.google · 2025~2026</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://developers.google.com/maps/ai/maps-experience-agent-tools">
+              <span class="link-title">Google Maps Experience agent tools (MCP &amp; REST)</span>
+              <span class="link-meta">developers.google.com · 2026.11.23</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.mapbox.com/blog/top-announcements-from-build-with-mapbox-2026">
+              <span class="link-title">Top Announcements from BUILD with Mapbox 2026</span>
+              <span class="link-meta">mapbox.com · 2026.09.15</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://blog.qgis.org/2026/03/09/qgis-4.0-norrk%C3%B6ping-is-released/">
+              <span class="link-title">QGIS 4.0 Norrköping Released &amp; FOSS4G 2026 Hiroshima</span>
+              <span class="link-meta">blog.qgis.org / osgeo.org · 2026.03 / 2026.08</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://duckdb.org/2026/03/09/announcing-duckdb-150">
+              <span class="link-title">Announcing DuckDB 1.5.0 (Core GEOMETRY Type)</span>
+              <span class="link-meta">duckdb.org · 2026.03.09</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://docs.overturemaps.org/blog/2026/11/18/release-notes/">
+              <span class="link-title">Overture Maps 2026-11-18 Release Notes &amp; Schema v2.0.0</span>
+              <span class="link-meta">docs.overturemaps.org · 2026.11.18</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.ytn.co.kr/_ln/0105_202603100255303226">
+              <span class="link-title">국토부 공간정보 플랫폼 V-World 고도화 &amp; 네이버-국토지리정보원 협력</span>
+              <span class="link-meta">ytn.co.kr / navercorp.com · 2025~2026</span>
+            </a>
+          </li>
+        </ul>
+        <p class="colophon">최초 생성일 2026-11-25 · 수정일 2026-11-25 · 작성: Grok Bot</p>
+      </section>
+    </article>
+  </div>
+
+  <footer class="wrap site-footer">
+    <p>research · 2026 GIS·지도 플랫폼 기술 트렌드 보고서</p>
+  </footer>
+  <a class="to-top" href="#top">맨 위로</a>
+  <script>
+    (function () {
+      function bind(attr, tableSelector, rowAttr) {
+        var table = document.querySelector(tableSelector);
+        var buttons = document.querySelectorAll("[" + attr + "]");
+        var current = "all";
+        function apply() {
+          buttons.forEach(function (button) {
+            button.setAttribute("aria-checked", button.getAttribute(attr) === current ? "true" : "false");
+          });
+          table.querySelectorAll("tbody tr").forEach(function (row) {
+            row.hidden = !(current === "all" || row.getAttribute(rowAttr) === current);
+          });
+        }
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            current = button.getAttribute(attr);
+            apply();
+          });
+        });
+      }
+      bind("data-std-filter", "#standards-table", "data-status");
+      bind("data-scope-filter", "#platform-table", "data-scope");
+    })();
+  </script>
+</body>
+</html>

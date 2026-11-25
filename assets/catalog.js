@@ -35,7 +35,10 @@
     });
 
     categories.sort(function (a, b) {
-      return a.reports[0].date < b.reports[0].date ? 1 : -1;
+      if (a.reports[0].date !== b.reports[0].date) {
+        return a.reports[0].date < b.reports[0].date ? 1 : -1;
+      }
+      return a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
     });
 
     root.innerHTML = categories
