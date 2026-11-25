@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026 개발 플랫폼 트렌드 보고서</title>
+  <meta name="description" content="2025년부터 2026년 11월까지 AI 에이전트와 바이브 코딩의 확산이 촉발한 개발 플랫폼 지각 변동을 정리했습니다. Vercel, Supabase, Modal, GCP, Neon, Turso 등 핵심 플랫폼의 기술·가격·M&amp;A 동향과 실전 스택 조합을 한눈에 비교합니다.">
+  <link rel="canonical" href="https://spacepro.github.io/research/dev/2026/11/dev-platform-trends/">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#overview">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="../../../../">research</a>
+    <span class="crumb">dev / 2026 / 11</span>
+  </header>
+
+  <header class="hero wrap" id="top">
+    <p class="kicker">dev · 2026.11.25</p>
+    <h1>2026 개발 플랫폼 트렌드 보고서</h1>
+    <p class="lede">2025년부터 2026년 11월까지 AI 에이전트와 바이브 코딩의 확산이 촉발한 개발 플랫폼 지각 변동을 정리했습니다. Vercel, Supabase, Modal, GCP, Neon, Turso 등 핵심 플랫폼의 기술·가격·M&amp;A 동향과 실전 스택 조합을 한눈에 비교합니다.</p>
+  </header>
+
+  <div class="layout wrap">
+    <nav class="toc" aria-label="목차">
+      <p class="toc-title">목차</p>
+      <ol>
+        <li><a href="#overview">1. 핵심 요약 및 2026 시장 지표</a></li>
+        <li><a href="#macro-trends">2. 2025~2026년 8대 거시 트렌드</a></li>
+        <li><a href="#comparison">3. 플랫폼 종합 비교표</a></li>
+        <li><a href="#deep-dives">4. 주요 플랫폼 심층 분석</a></li>
+        <li class="depth"><a href="#vercel">Vercel</a></li>
+        <li class="depth"><a href="#supabase">Supabase</a></li>
+        <li class="depth"><a href="#modal">Modal</a></li>
+        <li class="depth"><a href="#gcp">Google Cloud (GCP)</a></li>
+        <li class="depth"><a href="#neon">Neon</a></li>
+        <li class="depth"><a href="#turso">Turso</a></li>
+        <li class="depth"><a href="#others">기타 주목할 플랫폼</a></li>
+        <li><a href="#stacks">5. 목적별 실전 스택 추천</a></li>
+        <li><a href="#sources">6. 참고 출처</a></li>
+      </ol>
+    </nav>
+
+    <article class="report">
+      <section id="overview">
+        <h2>1. 핵심 요약 및 2026 시장 지표</h2>
+        <p class="caption">기준 시점: 2026년 11월 25일 (공식 블로그·가격표·투자 발표 기준)</p>
+        <p>2025~2026년 개발 플랫폼 시장은 사람이 대시보드를 클릭해 서버를 띄우던 시대에서 AI 코딩 에이전트가 코드 작성, DB 프로비저닝, 샌드박스 테스트, 프로덕션 배포까지 자율적으로 수행하는 에이전트 중심 인프라(Agentic Infrastructure) 시대로 전환되었습니다.</p>
+        <div class="metrics">
+          <article class="metric success">
+            <span class="value">80%</span>
+            <span class="label">스타트업 Postgres 채택률</span>
+            <span class="detail">Supabase State of Startups 2026 기준 (Supabase 49% + Postgres 22% 등)</span>
+          </article>
+          <article class="metric">
+            <span class="value">80%+</span>
+            <span class="label">Neon 에이전트 자동 생성 DB</span>
+            <span class="detail">인간이 아닌 AI 에이전트가 API로 프로비저닝한 비중</span>
+          </article>
+          <article class="metric success">
+            <span class="value">$15.75B</span>
+            <span class="label">Modal 기업가치 (2026.10)</span>
+            <span class="detail">ARR $10억 돌파, 전년 대비 15배+ 성장</span>
+          </article>
+          <article class="metric">
+            <span class="value">28배</span>
+            <span class="label">Vercel 에이전트 배포 증가</span>
+            <span class="detail">최근 12개월 에이전트 트리거 배포 성장률 (Ship 2026)</span>
+          </article>
+        </div>
+        <aside class="callout">
+          <strong>2026년 3대 핵심 결론</strong>
+          <p>첫째, 에이전트가 인프라를 직접 조작하기 위해 MCP(Model Context Protocol), 브랜치 격리 DB, 일회용 샌드박스가 모든 플랫폼의 기본 기능이 되었습니다. 둘째, 유휴 대기 시간을 과금하지 않는 Active CPU·초당 종량제 모델이 표준으로 자리 잡았습니다. 셋째, Databricks의 Neon 인수($1B), Google의 Wiz 인수($32B), Supabase의 Turso 인수(2026.10) 등 데이터·보안·에이전트 레이어를 수직 통합하는 대형 M&amp;A가 잇따랐습니다.</p>
+        </aside>
+      </section>
+
+      <section id="macro-trends">
+        <h2>2. 2025~2026년 8대 거시 트렌드</h2>
+        <p class="caption">공식 발표 및 시장 조사 데이터 기반</p>
+        <div class="chart-grid">
+          <figure class="chart">
+            <figcaption>기업가치 및 인수 규모 (십억 달러)</figcaption>
+            <ul class="bars">
+              <li>
+                <div class="bar-head"><span>Google-Wiz 인수 (2026.03)</span><strong>$32.0B</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                <p class="bar-meta">현금 인수 완료</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Modal Labs (2026.10)</span><strong>$15.75B</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:49.21875%"></div></div>
+                <p class="bar-meta">Series D $750M · ARR $1B</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Supabase (2026.06)</span><strong>$10.0B</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:31.25%"></div></div>
+                <p class="bar-meta">Series F $500M (프리머니)</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Vercel (2025.09)</span><strong>$9.3B</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:29.0625%"></div></div>
+                <p class="bar-meta">Series F $300M</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Render (2026.02)</span><strong>$1.5B</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:4.6875%"></div></div>
+                <p class="bar-meta">Series C 확장 $100M</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Databricks-Neon 인수 (2025.05)</span><strong>$1.0B</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:3.125%"></div></div>
+                <p class="bar-meta">약 $1B 인수 합의</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>PlanetScale (2025.10)</span><strong>$1.0B</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:3.125%"></div></div>
+                <p class="bar-meta">Series D $80M</p>
+              </li>
+            </ul>
+          </figure>
+          <figure class="chart alt">
+            <figcaption>주력 데이터베이스 점유율</figcaption>
+            <ul class="bars">
+              <li>
+                <div class="bar-head"><span>Supabase</span><strong>49%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                <p class="bar-meta">스타트업 주력 DB 1위</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>PostgreSQL (직접/타사)</span><strong>22%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:44.897959%"></div></div>
+                <p class="bar-meta">Postgres 계열 합산 80%</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>Redis</span><strong>6%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:12.244898%"></div></div>
+              </li>
+              <li>
+                <div class="bar-head"><span>Other</span><strong>6%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:12.244898%"></div></div>
+              </li>
+              <li>
+                <div class="bar-head"><span>MySQL</span><strong>5%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:10.204082%"></div></div>
+              </li>
+              <li>
+                <div class="bar-head"><span>Firebase</span><strong>5%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:10.204082%"></div></div>
+                <p class="bar-meta">전년 대비 -2%p</p>
+              </li>
+              <li>
+                <div class="bar-head"><span>SQLite</span><strong>4%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:8.163265%"></div></div>
+              </li>
+              <li>
+                <div class="bar-head"><span>MongoDB</span><strong>4%</strong></div>
+                <div class="bar-track"><div class="bar-fill" style="width:8.163265%"></div></div>
+                <p class="bar-meta">전년 대비 -5%p</p>
+              </li>
+            </ul>
+          </figure>
+        </div>
+        <p>왼쪽 차트는 2025~2026년 공개된 주요 개발·보안 플랫폼의 기업가치 및 인수 규모(단위: 십억 달러)이며, 오른쪽은 Supabase State of Startups 2026 조사의 주력 데이터베이스 점유율입니다. Postgres 계열이 80%까지 확장된 반면 MongoDB(-5%p), MySQL(-3%p), Firebase(-2%p) 등 기존 선택지는 점유율이 하락했습니다.</p>
+
+        <div class="trends">
+          <article class="trend">
+            <div class="trend-top">
+              <p class="lead">트렌드 01</p>
+              <span class="pill">핵심 동인</span>
+            </div>
+            <h3>AI 네이티브·바이브 코딩이 백엔드와 DB 수요를 견인</h3>
+            <p>Supabase 조사에서 스타트업 61%가 코드의 절반 이상(40%는 76~100%)을 AI로 생성하며, Supabase 신규 DB의 60% 이상, Neon의 80% 이상이 AI 도구·에이전트에 의해 생성됩니다. Bolt Cloud, Lovable Cloud, Replit 등 바이브 코딩 툴도 자체 내장 백엔드로 확장 중입니다.</p>
+          </article>
+          <article class="trend">
+            <div class="trend-top">
+              <p class="lead">트렌드 02</p>
+              <span class="pill success">Postgres 80%</span>
+            </div>
+            <h3>서버리스 Postgres 천하통일과 DB 브랜칭 표준화</h3>
+            <p>에이전트가 프로덕션 데이터를 건드리지 않고 스키마와 데이터를 복제해 테스트할 수 있도록 500ms 이내 DB 브랜칭이 필수가 되었습니다. PlanetScale마저 2025년 9월 Postgres를 정식 출시했고, Supabase는 Vitess 팀 기반 Multigres와 OrioleDB로 대규모 확장을 준비하고 있습니다.</p>
+          </article>
+          <article class="trend">
+            <p class="lead">트렌드 03</p>
+            <h3>에이전트당 1개 DB(One-DB-per-Agent)와 SQLite의 부활</h3>
+            <p>에이전트 세션·사용자·작업마다 독립 DB를 수백만 개 단위로 띄우는 패턴이 부상하면서 경량 SQLite 가치가 재조명되었습니다. Turso는 Rust 재작성 엔진으로 단일 쓰기 병목을 돌파했고, Cloudflare D1과 함께 엣지·에이전트 메모리 DB 시장을 이끌고 있습니다.</p>
+          </article>
+          <article class="trend">
+            <div class="trend-top">
+              <p class="lead">트렌드 04</p>
+              <span class="pill">신규 격전지</span>
+            </div>
+            <h3>에이전트 샌드박스(Sandboxes)와 서버리스 GPU의 폭발적 성장</h3>
+            <p>LLM이 작성한 신뢰할 수 없는 코드를 안전하게 실행하는 Firecracker/gVisor 기반 마이크로VM 샌드박스가 격전지입니다. Modal Sandboxes 단독으로 ARR $3억을 기록했고, Vercel Sandbox, Cloudflare Sandboxes, GCP Cloud Run/GKE Agent Sandbox가 잇따라 출시되었습니다.</p>
+          </article>
+          <article class="trend">
+            <p class="lead">트렌드 05</p>
+            <h3>MCP(Model Context Protocol)의 인프라 표준화</h3>
+            <p>Supabase(Remote MCP + OAuth2 + Elicitations + Okta 연동), Vercel(Connect 1,000+ 커넥터 + MCP Events), GCP(Cloud Run·Workspace MCP 서버), AWS(Aurora DSQL MCP)까지 주요 플랫폼이 에이전트용 MCP 엔드포인트를 1급 기능으로 탑재했습니다.</p>
+          </article>
+          <article class="trend">
+            <p class="lead">트렌드 06</p>
+            <h3>Active CPU 과금과 과금 상한(Billing Caps) 확산</h3>
+            <p>AI 워크로드는 LLM 응답 대기 등 I/O 유휴 시간이 길어 기존 월 타임(Wall-time) 과금이 불리했습니다. Vercel Fluid Compute와 Cloudflare Sandboxes가 실제 CPU 실행 시간만 청구하는 Active CPU 과금을 도입했고, Modal은 초당 과금, Neon은 25% 단가 인하와 최소 과금 폐지를 단행했습니다. 폭주 에이전트 대비용 과금 상한도 보편화되고 있습니다.</p>
+          </article>
+          <article class="trend">
+            <div class="trend-top">
+              <p class="lead">트렌드 07</p>
+              <span class="pill">M&amp;A 가속</span>
+            </div>
+            <h3>데이터·보안·에이전트 레이어의 대형 M&amp;A 통합</h3>
+            <p>Databricks가 Neon을 약 $1B에 인수(2025.05)해 레이크하우스와 OLTP를 결합했고, Google은 멀티클라우드 보안 플랫폼 Wiz를 $32B에 인수(2026.03)했으며, Supabase는 Turso를 인수(2026.10)해 에이전트용 초경량 SQLite에서 대규모 Postgres까지 단일 파이프라인을 구축했습니다.</p>
+          </article>
+          <article class="trend">
+            <p class="lead">트렌드 08</p>
+            <h3>오픈소스 생태계와 BYOC(Bring Your Own Cloud)의 결합</h3>
+            <p>개발자·에이전트 신뢰를 얻는 오픈소스 코어(Supabase, Turso, Vercel AI SDK/eve) 위에, 규제·대기업 고객을 위한 자체 클라우드 실행(Vercel BYOC on AWS, Turso BYOC, Modal 20+ 멀티클라우드 풀링)을 제공하는 하이브리드 전략이 주류가 되었습니다.</p>
+          </article>
+        </div>
+
+        <div class="flow" aria-label="AI 코딩 에이전트에서 프로덕션까지의 흐름">
+          <div class="flow-top">
+            <div class="node terminal s0">
+              <strong>AI 코딩 에이전트</strong>
+              <span>Cursor · Claude Code · v0 · Antigravity</span>
+            </div>
+            <p class="arrow">도구 호출</p>
+            <div class="node s0">
+              <strong>MCP · CLI 제어계</strong>
+              <span>Remote MCP · Elicitations · Connect</span>
+            </div>
+          </div>
+          <div class="flow-mid">
+            <div class="branch">
+              <p class="arrow down">코드 검증·추론</p>
+              <div class="node s1">
+                <strong>격리 샌드박스 · GPU</strong>
+                <span>Modal · Vercel Sandbox · Cloudflare</span>
+              </div>
+              <p class="arrow down">배포·BYOC</p>
+            </div>
+            <div class="branch">
+              <p class="arrow down">즉시 생성·테스트</p>
+              <div class="node s2">
+                <strong>초경량·브랜치 DB</strong>
+                <span>Turso (SQLite) · Neon 브랜칭</span>
+              </div>
+              <p class="arrow down">규모 확장·승격</p>
+            </div>
+          </div>
+          <div class="node terminal s2 flow-end">
+            <strong>프로덕션 BaaS · 클라우드</strong>
+            <span>Supabase/Multigres · GCP · Lakebase</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="comparison">
+        <h2>3. 플랫폼 종합 비교표</h2>
+        <p class="caption">분류 필터와 보기 모드를 전환해 핵심 플랫폼을 비교할 수 있습니다.</p>
+        <div class="controls">
+          <div class="segmented" role="radiogroup" aria-label="분류 필터">
+            <button type="button" role="radio" aria-checked="true" data-filter="all">전체 (11)</button>
+            <button type="button" role="radio" aria-checked="false" data-filter="fullstack">프론트·풀스택 (3)</button>
+            <button type="button" role="radio" aria-checked="false" data-filter="database">데이터베이스 (4)</button>
+            <button type="button" role="radio" aria-checked="false" data-filter="compute">AI 컴퓨트·클라우드 (2)</button>
+            <button type="button" role="radio" aria-checked="false" data-filter="others">기타 PaaS·클라우드 (2)</button>
+          </div>
+          <div class="segmented" role="radiogroup" aria-label="보기 모드">
+            <button type="button" role="radio" aria-checked="true" data-set-view="summary">핵심 요약 · 최근 뉴스</button>
+            <button type="button" role="radio" aria-checked="false" data-set-view="pricing_ai">요금 · AI 기능 상세</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="platform-table" id="platform-table" data-view="summary">
+            <thead>
+              <tr>
+                <th scope="col">플랫폼</th>
+                <th class="only-summary" scope="col">분류</th>
+                <th class="only-summary" scope="col">핵심 용도</th>
+                <th class="only-summary" scope="col">최근 핵심 이슈 (2025~2026)</th>
+                <th class="only-pricing" scope="col">과금 모델</th>
+                <th class="only-pricing" scope="col">무료 티어</th>
+                <th class="only-pricing" scope="col">AI · 에이전트 기능</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-category="fullstack">
+                <td>Vercel</td>
+                <td class="only-summary">프론트·AI 클라우드</td>
+                <td class="only-summary">Next.js/풀스택 웹, AI 앱·에이전트 호스팅</td>
+                <td class="only-summary">Series F $3억($9.3B, 2025.09), Python GA·Daemons·BYOC AWS(2026.10)</td>
+                <td class="only-pricing">Hobby $0 / Pro $20·월 + Active CPU ($0.128/hr)</td>
+                <td class="only-pricing">Hobby: 월 100GB 전송, Active CPU 4시간, Sandbox 5시간</td>
+                <td class="only-pricing">v0, AI SDK 7, AI Gateway, Sandbox &amp; Drives, Workflows, eve</td>
+              </tr>
+              <tr data-category="database">
+                <td>Supabase</td>
+                <td class="only-summary">BaaS / Postgres</td>
+                <td class="only-summary">Postgres 기반 인증·스토리지·API 통합 백엔드</td>
+                <td class="only-summary">Series F $5억($10B, 2026.06), Turso 인수·$1.5억 투자(2026.10)</td>
+                <td class="only-pricing">Free $0 / Pro $25·월($10 크레딧 포함) / Team $599·월</td>
+                <td class="only-pricing">활성 2개 프로젝트, 500MB DB, 5만 MAU(1주 미사용 시 중지)</td>
+                <td class="only-pricing">Remote MCP(OAuth2/Elicitations), query_logs, pgvector, 앱 MCP 블록</td>
+              </tr>
+              <tr data-category="compute">
+                <td>Modal</td>
+                <td class="only-summary">서버리스 GPU/AI</td>
+                <td class="only-summary">AI 추론, 배치, RL/학습, 격리 에이전트 샌드박스</td>
+                <td class="only-summary">ARR $10억 돌파·Series D $7.5억($15.75B, 2026.10)</td>
+                <td class="only-pricing">Starter $0 / Team $250·월 + GPU/CPU 초당 종량제</td>
+                <td class="only-pricing">Starter: 월 $30 컴퓨트 크레딧, 1TiB 볼륨·이그레스</td>
+                <td class="only-pricing">GPU 스냅샷(100x 고속 부팅), Sandboxes(100만 동시), RDMA 학습</td>
+              </tr>
+              <tr data-category="compute">
+                <td>Google Cloud (GCP)</td>
+                <td class="only-summary">하이퍼스케일러</td>
+                <td class="only-summary">엔터프라이즈 AI·멀티클라우드·서버리스 컨테이너</td>
+                <td class="only-summary">Wiz $32B 인수 완료(2026.03), Firebase Studio 2027.03 종료 예고</td>
+                <td class="only-pricing">종량제(Cloud Run L4 $0.0001867/초, RTX PRO 6000 $0.000365/초)</td>
+                <td class="only-pricing">Cloud Run/Firestore 무료 등급 및 신규 크레딧</td>
+                <td class="only-pricing">Gemini Enterprise Agent Platform, ADK, Agent Sandbox, Antigravity</td>
+              </tr>
+              <tr data-category="database">
+                <td>Neon</td>
+                <td class="only-summary">서버리스 Postgres</td>
+                <td class="only-summary">에이전트 자동 프로비저닝·브랜칭 중심 서버리스 Postgres</td>
+                <td class="only-summary">Databricks ~$1B 인수(2025.05) 후 Lakebase Postgres 엔진 통합</td>
+                <td class="only-pricing">순수 종량제(Launch $0.106/CU-hr, Scale $0.222/CU-hr, $0.35/GB)</td>
+                <td class="only-pricing">프로젝트 100개, 프로젝트당 월 100 CU-hr·1GB 스토리지</td>
+                <td class="only-pricing">500ms 이하 DB 생성·즉시 브랜칭, AI Gateway, Better Auth 통합</td>
+              </tr>
+              <tr data-category="database">
+                <td>Turso</td>
+                <td class="only-summary">엣지·에이전트 SQLite</td>
+                <td class="only-summary">에이전트당 1개 DB, 초저지연 임베디드·멀티테넌트 SQLite</td>
+                <td class="only-summary">Supabase에 인수 발표(2026.10.02), Turso Cloud·오픈소스 유지</td>
+                <td class="only-pricing">Free $0 / Developer $4.99·월 / Scaler $24.92·월 / Pro $416.58·월</td>
+                <td class="only-pricing">DB 100개, 5GB, 월 5억 행 읽기·1,000만 행 쓰기</td>
+                <td class="only-pricing">Rust 재작성 엔진(Turso 0.8 동시 쓰기 9,500 TPS), 네이티브 벡터 검색</td>
+              </tr>
+              <tr data-category="fullstack">
+                <td>Cloudflare</td>
+                <td class="only-summary">엣지 컴퓨트·샌드박스</td>
+                <td class="only-summary">초저지연 엣지 워커, 내구성 에이전트 상태, 코드 샌드박스</td>
+                <td class="only-summary">Containers &amp; Sandboxes GA(2026.04), PlanetScale Postgres 연동</td>
+                <td class="only-pricing">Workers 무료/유료 + Active CPU 기반 Containers·Sandboxes</td>
+                <td class="only-pricing">Workers 일 10만 요청, D1 5GB 무료</td>
+                <td class="only-pricing">Agents SDK(Durable Objects), Sandboxes GA, D1, Hyperdrive</td>
+              </tr>
+              <tr data-category="database">
+                <td>PlanetScale</td>
+                <td class="only-summary">고성능 DB</td>
+                <td class="only-summary">대규모 트래픽용 고성능 MySQL·Postgres 및 샤딩</td>
+                <td class="only-summary">Postgres GA·Neki 샤딩 공개(2025.09), Series D $8천만($1B, 2025.10)</td>
+                <td class="only-pricing">Managed Postgres 월 $5부터(Metal 기반) / Enterprise</td>
+                <td class="only-pricing">무료 플랜 종료(유료 시작가 $5/월)</td>
+                <td class="only-pricing">Convex 등 AI 백엔드 인프라 제공, Cloudflare Hyperdrive 연동</td>
+              </tr>
+              <tr data-category="fullstack">
+                <td>Convex</td>
+                <td class="only-summary">반응형 백엔드</td>
+                <td class="only-summary">바이브 코딩·실시간 UI용 TypeScript 풀스택 백엔드</td>
+                <td class="only-summary">PlanetScale Postgres 기반 구동, Series B $5,700만 유치(2026.08)</td>
+                <td class="only-pricing">무료 등급 + 사용량 기반 프로 플랜</td>
+                <td class="only-pricing">개발·소규모 앱용 무료 티어 제공</td>
+                <td class="only-pricing">결정론적 TS 쿼리, AI 코드 생성 친화적 스키마·함수 일체형</td>
+              </tr>
+              <tr data-category="others">
+                <td>Railway / Render / Fly.io</td>
+                <td class="only-summary">모던 PaaS</td>
+                <td class="only-summary">컨테이너·풀스택 서버·워커 배포(하이퍼스케일러 대안)</td>
+                <td class="only-summary">Railway $1억 Series B(2026.01), Render $1억 추가 투자($1.5B, 2026.02)</td>
+                <td class="only-pricing">Railway 종량제 / Render $0·$25·$499(시트비 없음) / Fly 초당 Machines</td>
+                <td class="only-pricing">Render Hobby $0 / Fly 월 $5 무료 사용량</td>
+                <td class="only-pricing">MCP/CLI 연동 배포, 서버리스 슬립(Railway), 초고속 VM(Fly)</td>
+              </tr>
+              <tr data-category="others">
+                <td>Netlify / AWS</td>
+                <td class="only-summary">배포·하이퍼스케일러</td>
+                <td class="only-summary">에이전트 가드레일 배포(Netlify) / 대규모 엔터프라이즈(AWS)</td>
+                <td class="only-summary">AWS Aurora DSQL(2025.05)·AgentCore(2025.10) GA</td>
+                <td class="only-pricing">Netlify 티어+종량제 / AWS Aurora DSQL·AgentCore 종량제</td>
+                <td class="only-pricing">Netlify Starter 무료 / AWS 프리 티어</td>
+                <td class="only-pricing">Netlify DB(에이전트 브랜치·읽기 전용 프로덕션), Bedrock AgentCore</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="deep-dives">
+        <h2>4. 주요 플랫폼 심층 분석</h2>
+
+        <section id="vercel">
+          <h3>Vercel — 프론트엔드 클라우드에서 'AI·에이전트 인프라'로 전환</h3>
+          <dl class="props">
+            <div>
+              <dt>정체성</dt>
+              <dd>Next.js 개발사 기반 풀스택 웹·AI 에이전트 실행 플랫폼</dd>
+            </div>
+            <div>
+              <dt>투자·성장</dt>
+              <dd>2025년 9월 Series F $3억 유치(기업가치 $9.3B, YoY 매출 +82%). 2026년 10월 Ship 기준 개발자 3배, 에이전트 트리거 배포 28배 증가</dd>
+            </div>
+            <div>
+              <dt>핵심 출시</dt>
+              <dd><code>AI Cloud</code>(Fluid compute + Active CPU), <code>AI SDK 7</code>(주간 다운로드 1,600만+), <code>Vercel Sandbox</code> GA &amp; <code>Drives</code>, <code>Python</code> GA, <code>Daemons</code> 베타, <code>Workflows</code> GA, 오픈소스 에이전트 프레임워크 <code>eve</code>, <code>Vercel Connect</code> GA, AWS <code>BYOC</code> GA</dd>
+            </div>
+            <div>
+              <dt>요금 구조</dt>
+              <dd>Hobby $0(월 100GB 전송, Active CPU 4시간) / Pro $20·월(Active CPU $0.128/hr, 프로비저닝 메모리 $0.0106/GB-hr, Sandbox 메모리 $0.0212/GB-hr) / Enterprise 맞춤</dd>
+            </div>
+            <div>
+              <dt>적합 대상</dt>
+              <dd>Next.js/React 팀, 풀스택 TypeScript·Python AI 앱, 프로덕션 에이전트 호스팅 팀</dd>
+            </div>
+          </dl>
+          <p>Vercel은 2025년 중반 AI Cloud를 기점으로 단순 프론트엔드 호스팅을 넘어 백엔드·Python(FastAPI/Flask/Django)·지속 실행 워커(<code>Daemons</code>)·격리 마이크로VM(<code>Sandbox</code> + 영구 스토리지 <code>Drives</code>)까지 통합했습니다. 특히 <code>Fluid compute</code>의 Active CPU 과금은 LLM 응답을 기다리는 동안 CPU 비용을 0으로 줄여 AI 추론·MCP 서버 운영비를 기존 서버리스 대비 최대 90%까지 절감합니다. 또한 <code>v0</code>의 비동기 API와 <code>AI Gateway</code>(US 전용 추론, Zero Data Retention, Token Pass)로 엔터프라이즈 제어권을 강화했습니다. 출처: <a href="https://vercel.com/blog/the-ai-cloud-a-unified-platform-for-ai-workloads">https://vercel.com/blog/the-ai-cloud-a-unified-platform-for-ai-workloads</a> , <a href="https://vercel.com/blog/vercel-ship-2026-recap">https://vercel.com/blog/vercel-ship-2026-recap</a></p>
+          <div class="proscons">
+            <div class="pros">
+              <h4>장점</h4>
+              <ul>
+                <li>프론트엔드·API·Python·내구성 워크플로우·샌드박스·AI 게이트웨이의 압도적 통합 경험</li>
+                <li>Active CPU 과금으로 I/O 대기가 긴 에이전트·LLM 스트리밍 비용 대폭 절감</li>
+                <li>AWS BYOC GA 및 Zero Data Retention 지원으로 대기업 컴플라이언스 대응</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>단점</h4>
+              <ul>
+                <li>고트래픽 이그레스·대용량 미디어·상시 GPU 추론(전용 GPU 클러스터)에는 비용 상승 주의 필요</li>
+                <li>벤더 생태계(Next.js/Vercel Workflows 등) 결합도가 높아질 수 있음</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="supabase">
+          <h3>Supabase — 바이브 코딩 최대 수혜주에서 '에이전트 데이터 제국'으로</h3>
+          <dl class="props">
+            <div>
+              <dt>정체성</dt>
+              <dd>오픈소스 PostgreSQL 기반 올인원 백엔드(DB·Auth·Storage·Functions·Realtime)</dd>
+            </div>
+            <div>
+              <dt>투자·성장</dt>
+              <dd>2025.10 Series E $1억($5B) → 2026.06 Series F $5억($10B 프리머니, GIC 리드) → 2026.10 $1.5억 추가 투자. 개발자 약 1,000만 명, 주간 100만+ DB 생성(60%+ AI 도구 생성)</dd>
+            </div>
+            <div>
+              <dt>핵심 출시</dt>
+              <dd>Remote MCP(OAuth2·Elicitations·<code>query_logs</code>·Okta SSO), Docker 없는 로컬 CLI(알파), Declarative Schemas 2.0(<code>pg-delta</code>), <code>Supabase Compute</code>(비공개 알파), <code>Multigres</code>(Vitess 기반 다중 노드 Postgres, 비공개 알파), <code>OrioleDB</code>(베타), <code>Pipelines</code>, Turso 인수(2026.10)</dd>
+            </div>
+            <div>
+              <dt>요금 구조</dt>
+              <dd>Free $0(활성 2개, 500MB, 1주 미사용 시 중지) / Pro $25·월($10 컴퓨트 크레딧 포함, 8GB, 10만 MAU) / Team $599·월(SOC2·SSO) / 추가 컴퓨트 Micro $10~16XL $3,730·월</dd>
+            </div>
+            <div>
+              <dt>적합 대상</dt>
+              <dd>1인·스타트업 MVP, 바이브 코딩 앱, 풀스택 Postgres SaaS, 에이전트 기반 제품 전반</dd>
+            </div>
+          </dl>
+          <p>Supabase는 LLM들이 백엔드 기본값으로 추천하면서 스타트업 주력 DB 49%(State of Startups 2026)를 차지했습니다. 2026년 10월 Supabase Select 2026에서는 코드 중심 스키마 관리(<code>pg-delta</code>), 에이전트가 운영 로그를 SQL로 직접 진단하는 <code>query_logs</code> MCP, 유료 리소스 생성이나 삭제성 SQL 전에 사용자 승인을 받는 MCP Elicitations를 공개했습니다. 같은 날 Turso 인수를 발표해 에이전트당 경량 SQLite(Turso)부터 페타바이트급 다중 노드 Postgres(<code>Multigres</code>)까지 한 지붕 아래 잇는 로드맵을 완성했습니다. 출처: <a href="https://supabase.com/blog/series-f">https://supabase.com/blog/series-f</a> , <a href="https://supabase.com/blog/supabase-select-2026-recap">https://supabase.com/blog/supabase-select-2026-recap</a></p>
+          <div class="proscons">
+            <div class="pros">
+              <h4>장점</h4>
+              <ul>
+                <li>DB·인증(RLS)·스토리지·엣지 함수·벡터·실시간을 단일 프로젝트로 즉시 연동</li>
+                <li>강력한 오픈소스 생태계 및 자체 호스팅(Docker/CLI) 가능</li>
+                <li>Turso 인수와 Multigres·OrioleDB로 초소형 에이전트 DB부터 초대형 Postgres까지 확장 경로 확보</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>단점</h4>
+              <ul>
+                <li>무료 플랜의 1주 비활성 자동 중지 및 브랜칭의 유료 플랜 전용 정책</li>
+                <li>초기 바이브 코딩 플랫폼(Lovable/Bolt 등)의 자체 내장 백엔드 출시와 경쟁 심화</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="modal">
+          <h3>Modal — ARR $10억을 돌파한 서버리스 AI·GPU 컴퓨트 최강자</h3>
+          <dl class="props">
+            <div>
+              <dt>정체성</dt>
+              <dd>Python 코드 퍼스트 서버리스 GPU/CPU 클라우드 및 에이전트 샌드박스 플랫폼</dd>
+            </div>
+            <div>
+              <dt>투자·성장</dt>
+              <dd>2025.09 Series B $87M($1.1B) → 2026.05 Series C $355M($4.65B, ARR $3억) → 2026.10.14 Series D $750M($15.75B, ARR $10억 돌파, YoY 15배+ 성장)</dd>
+            </div>
+            <div>
+              <dt>핵심 출시</dt>
+              <dd><code>Sandboxes</code>(단독 ARR $3억, 누적 약 30억 개 생성, 동시 100만 개, VM GA), GPU 스냅샷(콜드 스타트 100배 단축), 다중 노드 RDMA 클러스터 학습, RL·사후학습(post-training) 제품군, <code>Model APIs</code>(토큰 과금)</dd>
+            </div>
+            <div>
+              <dt>요금 구조</dt>
+              <dd>Starter $0(월 $30 무료 크레딧, 최대 10 GPU 동시성) / Team $250·월(월 $100 크레딧, 50 GPU). 초당 과금: T4 $0.000164/s ~ H100 $0.001097/s ~ B300 $0.001972/s. CPU Sandbox는 비선점형 3배 단가 적용</dd>
+            </div>
+            <div>
+              <dt>적합 대상</dt>
+              <dd>커스텀 LLM/생성미디어 추론, 대규모 배치·RL 롤아웃, 바이브 코딩 플랫폼의 코드 실행 샌드박스</dd>
+            </div>
+          </dl>
+          <p>Modal은 AWS/GCP/OCI 등 20개 이상의 클라우드 GPU 용량을 풀링하고, Rust 기반 자체 컨테이너 런타임·파일시스템·스케줄러를 구축해 YAML이나 쿠버네티스 없이 Python 데코레이터(<code>@app.function()</code>)만으로 0에서 수천 개 GPU까지 초 단위로 확장합니다. Lovable 등 AI 앱 빌더와 강화학습(RL) 연구팀이 대거 채택하면서 2026년 10월 ARR 10억 달러, 기업가치 157.5억 달러로 급성장했습니다. 출처: <a href="https://modal.com/blog/1-billion-annualized-run-rate-series-d">https://modal.com/blog/1-billion-annualized-run-rate-series-d</a> , <a href="https://modal.com/pricing">https://modal.com/pricing</a></p>
+          <div class="proscons">
+            <div class="pros">
+              <h4>장점</h4>
+              <ul>
+                <li>GPU 스냅샷 기반 서브초~수초 콜드 스타트와 유휴 비용 0원(초당 과금)</li>
+                <li>인프라/YAML 설정 없이 Python 코드만으로 추론·배치·샌드박스·RDMA 학습까지 구현</li>
+                <li>대규모 스파이크성 워크로드에서 상시 예약 인스턴스 대비 높은 비용 효율</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>단점</h4>
+              <ul>
+                <li>Python 중심 생태계(웹 프론트엔드·관계형 DB 호스팅 플랫폼은 아님)</li>
+                <li>Sandbox CPU/메모리는 비선점형 3배 요율이 적용되며, 2026.09부터 Model API 토큰 비용은 Starter $30 무료 크레딧에서 제외</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="gcp">
+          <h3>Google Cloud (GCP) — 엔터프라이즈 에이전트 플랫폼과 Wiz 인수</h3>
+          <dl class="props">
+            <div>
+              <dt>정체성</dt>
+              <dd>Gemini·TPU·Cloud Run·GKE·Firebase를 아우르는 AI 중심 하이퍼스케일러</dd>
+            </div>
+            <div>
+              <dt>M&amp;A · 전략</dt>
+              <dd>2026년 3월 11일 클라우드·AI 보안 플랫폼 <code>Wiz</code> $32B 현금 인수 완료(멀티클라우드 지원 유지). 2026년 4월 Cloud Next '26에서 에이전트 엔터프라이즈 청사진 공개</dd>
+            </div>
+            <div>
+              <dt>핵심 출시</dt>
+              <dd><code>Gemini Enterprise Agent Platform</code>(Vertex AI 진화: ADK, Agent Studio, Agent Runtime, Agent Sandbox), <code>Cloud Run</code> NVIDIA RTX PRO 6000 Blackwell GPU(GA)·Remote MCP Server(GA)·Sandboxes(프리뷰), <code>Firebase SQL Connect</code>(Cloud SQL Postgres), 8세대 TPU</dd>
+            </div>
+            <div>
+              <dt>IDE 전환 공지</dt>
+              <dd>2025.04 출시한 <code>Firebase Studio</code>는 2027년 3월 22일 서비스 종료(Sunset) 예정 — 코드 중심 프로젝트는 <code>Google Antigravity</code>($30/시트·월~), 브라우저 프로토타입은 <code>Google AI Studio</code>로 이전 안내</dd>
+            </div>
+            <div>
+              <dt>적합 대상</dt>
+              <dd>대규모 데이터·보안 거버넌스가 필요한 엔터프라이즈, Gemini/TPU 기반 AI 서비스, Cloud Run 서버리스 GPU 사용자</dd>
+            </div>
+          </dl>
+          <p>GCP는 2026년 Cloud Next '26을 기점으로 Vertex AI를 <code>Gemini Enterprise Agent Platform</code>으로 확장하고, <code>Cloud Run</code>에 최대 70B+ 파라미터 모델을 서버 관리 없이 실행(유휴 시 0으로 스케일)하는 RTX PRO 6000 Blackwell GPU와 격리 <code>Sandboxes</code>를 결합했습니다. 반면 클라우드 IDE였던 <code>Firebase Studio</code>는 2027년 3월 종료를 공식화하고 멀티에이전트 IDE인 <code>Google Antigravity</code>와 <code>Google AI Studio</code>(Cloud Run 원클릭 풀스택 배포 GA)로 개발 도구를 재편했습니다. 출처: <a href="https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up">https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up</a> , <a href="https://firebase.google.com/docs/studio/migrating-project">https://firebase.google.com/docs/studio/migrating-project</a></p>
+          <div class="proscons">
+            <div class="pros">
+              <h4>장점</h4>
+              <ul>
+                <li>8세대 TPU·Blackwell GPU·BigQuery·Wiz 보안을 아우르는 엔터프라이즈 풀스택</li>
+                <li>Cloud Run의 스케일-투-제로 GPU 추론($0.0001867/s L4, $0.000365/s RTX PRO 6000) 및 AI Studio 원클릭 배포</li>
+                <li>Workspace MCP, ADK, GKE RL Scheduler 등 조직 내 에이전트 거버넌스 기능 완비</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>단점</h4>
+              <ul>
+                <li>IAM·VPC·콘솔 복잡도가 높아 소규모 팀의 초기 개발 경험(DX)은 Vercel·Supabase 대비 무거움</li>
+                <li>Firebase Studio 종료처럼 제품 라인업 통합·개편에 따른 마이그레이션 부담 존재</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="neon">
+          <h3>Neon — Databricks 품에 안긴 에이전트용 서버리스 Postgres 'Lakebase'</h3>
+          <dl class="props">
+            <div>
+              <dt>정체성</dt>
+              <dd>스토리지·컴퓨트 분리 및 Copy-on-Write 브랜칭 기반 서버리스 Postgres</dd>
+            </div>
+            <div>
+              <dt>M&amp;A · 지표</dt>
+              <dd>2025년 5월 14일 Databricks가 약 $1B에 인수 합의. 이후 Neon 엔진이 <code>Lakebase Postgres</code>로 명명되어 Neon과 Databricks 양쪽에 동시 탑재. 플랫폼 DB의 80% 이상을 AI 에이전트가 생성</dd>
+            </div>
+            <div>
+              <dt>핵심 출시</dt>
+              <dd>500ms 이하 DB 인스턴스 생성 및 데이터 포함 즉시 브랜칭, Managed Better Auth·Object Storage·Functions·AI Gateway·Realtime(Beta)을 포함한 앱·에이전트 백엔드 확장</dd>
+            </div>
+            <div>
+              <dt>요금 개편</dt>
+              <dd>2025.11 컴퓨트 단가 25% 인하 및 월 최소 과금 폐지. Free $0(100 프로젝트, 각 100 CU-hr/월, 1GB) / Launch $0.106/CU-hr + $0.35/GB-월 / Scale $0.222/CU-hr(SOC2·HIPAA·PrivateLink 포함)</dd>
+            </div>
+            <div>
+              <dt>적합 대상</dt>
+              <dd>Git PR·에이전트 실행마다 격리 DB 브랜치가 필요한 팀, Replit 등 코드 생성 플랫폼, Databricks 연계 기업</dd>
+            </div>
+          </dl>
+          <p>Databricks의 $1B 인수 이후 많은 이들이 독립 개발자 경험의 약화를 우려했으나, 실제로는 정반대의 결과가 나타났습니다. Databricks의 글로벌 인프라와 자본을 등에 업고 2025년 8~11월에 걸쳐 스토리지 단가 인하($1.75 → $0.35/GB-월), 컴퓨트 25% 인하, 무료 플랜 100 CU-hr 상향, 엔터프라이즈 보안 기능의 Scale 플랜 편입을 단행했습니다. 또한 Auth·Storage·AI Gateway를 덧붙여 순수 DB에서 에이전트용 백엔드로 영역을 넓혔습니다. 출처: <a href="https://neon.com/docs/introduction/neon-and-lakebase">https://neon.com/docs/introduction/neon-and-lakebase</a> , <a href="https://neon.com/blog/major-compute-price-reduction-on-neon">https://neon.com/blog/major-compute-price-reduction-on-neon</a></p>
+          <div class="proscons">
+            <div class="pros">
+              <h4>장점</h4>
+              <ul>
+                <li>0.5초 내 프로비저닝과 데이터 포함 즉시 브랜칭으로 CI/CD·에이전트 실험에 최적화</li>
+                <li>완전한 스케일-투-제로와 저렴해진 순수 종량제(무료 플랜 프로젝트 100개 제공)</li>
+                <li>Databricks Unity Catalog·레이크하우스와 동일 Postgres 엔진(Lakebase)으로 연결</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>단점</h4>
+              <ul>
+                <li>장시간 상시 고부하 트래픽에서는 전용 인스턴스(PlanetScale/RDS 등) 대비 CU-hr 단가 계산 필요</li>
+                <li>BaaS 생태계(UI·레퍼런스·서드파티 통합) 성숙도는 아직 Supabase가 우위</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="turso">
+          <h3>Turso — Rust로 재작성한 동시 쓰기 SQLite, Supabase와 합류</h3>
+          <dl class="props">
+            <div>
+              <dt>정체성</dt>
+              <dd>Rust로 처음부터 재작성한 오픈소스 SQLite 엔진(구 Limbo) 및 디스크리스 클라우드 DB</dd>
+            </div>
+            <div>
+              <dt>M&amp;A · 방향</dt>
+              <dd>2026년 10월 2일 Supabase가 Turso 인수 발표. Glauber Costa 창업자가 Supabase Head of Agentic Services로 합류. 기존 Turso Cloud·오픈소스 엔진 유지</dd>
+            </div>
+            <div>
+              <dt>핵심 기술</dt>
+              <dd><code>Turso 0.8</code>에서 <code>BEGIN CONCURRENT</code> 기반 다중 쓰기 구현(64커넥션 9,500 TPS, 32커넥션 p99.9 2.4ms). <code>io_uring</code> 비동기 I/O, 네이티브 벡터 검색, Antithesis 기반 결정론적 시뮬레이션 테스트(DST), WAL-on-S3 디스크리스 아키텍처</dd>
+            </div>
+            <div>
+              <dt>요금 구조</dt>
+              <dd>Free $0(DB 100개, 5GB, 5억 행 읽기) / Developer $4.99·월(9GB, 25억 읽기) / Scaler $24.92·월(24GB, 1,000억 읽기) / Pro $416.58·월. 브랜치·PITR 추가 과금 없음</dd>
+            </div>
+            <div>
+              <dt>적합 대상</dt>
+              <dd>에이전트당 1개 DB(메모리·상태 저장), 멀티테넌트 SaaS, 로컬-퍼스트·임베디드 레플리카 앱</dd>
+            </div>
+          </dl>
+          <div class="chart-grid">
+            <figure class="chart bench">
+              <figcaption>쓰기 처리량 (TPS)</figcaption>
+              <ul class="bars">
+                <li>
+                  <div class="bar-head"><span>Turso 0.8 (BEGIN CONCURRENT)</span><strong>9,500 TPS</strong></div>
+                  <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                </li>
+                <li>
+                  <div class="bar-head"><span>SQLite 3.50.2 (기존)</span><strong>1,370 TPS</strong></div>
+                  <div class="bar-track"><div class="bar-fill" style="width:14.421053%"></div></div>
+                </li>
+              </ul>
+            </figure>
+            <figure class="chart bench">
+              <figcaption>p99.9 지연시간, 32 커넥션</figcaption>
+              <ul class="bars">
+                <li>
+                  <div class="bar-head"><span>Turso 0.8 (32 커넥션)</span><strong>2.4 ms</strong></div>
+                  <div class="bar-track"><div class="bar-fill" style="width:0.2%"></div></div>
+                </li>
+                <li>
+                  <div class="bar-head"><span>SQLite 3.50.2 (32 커넥션)</span><strong>1,200 ms</strong></div>
+                  <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                </li>
+              </ul>
+            </figure>
+          </div>
+          <p>위 벤치마크(Turso 0.8 공식 블로그 기준)는 기존 SQLite의 고질적 약점이던 단일 쓰기 락(Single-writer lock)을 <code>BEGIN CONCURRENT</code>와 그룹 커밋으로 해결한 결과입니다. 64개 동시 연결에서 쓰기 처리량이 약 7배(9,500 TPS vs 1,370 TPS)로 늘었고, 32개 연결 p99.9 지연시간은 1.2초에서 2.4ms로 500배 단축되었습니다. 유휴 DB는 S3 스토리지 비용만 발생해 한 서버에서 수백만 개 DB를 운용할 수 있으며, Supabase 인수로 인해 에이전트가 만든 SQLite DB가 성장할 때 Postgres로 매끄럽게 승격되는 경로가 열렸습니다. 출처: <a href="https://turso.tech/blog/turso-0.8.0">https://turso.tech/blog/turso-0.8.0</a> , <a href="https://turso.tech/blog/turso-is-joining-supabase">https://turso.tech/blog/turso-is-joining-supabase</a></p>
+          <div class="proscons">
+            <div class="pros">
+              <h4>장점</h4>
+              <ul>
+                <li>파일처럼 가볍고 저렴하게 에이전트·테넌트당 수십만~수백만 개 DB 생성 가능</li>
+                <li>Rust 재작성 엔진의 비동기 I/O, 네이티브 벡터, 동시 쓰기 지원 및 로컬 임베디드 동기화</li>
+                <li>Supabase 생태계 합류로 향후 Postgres·Multigres로의 자연스러운 마이그레이션 기대</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>단점</h4>
+              <ul>
+                <li>복잡한 대규모 관계형 조인·풍부한 Postgres 확장(PostGIS 등) 생태계와는 목적이 다름</li>
+                <li>Supabase와의 통합 아키텍처는 향후 순차 공개 예정</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="others">
+          <h3>기타 2025~2026년 주목할 플랫폼</h3>
+          <ul class="bullets">
+            <li>Cloudflare: 2026년 4월 <code>Containers</code>와 <code>Sandboxes</code>를 GA 출시하고 Active CPU 과금을 도입했습니다(Figma Make 등이 채택). <code>Agents SDK</code>(Durable Objects 기반 상태·웹소켓), <code>D1</code>(SQLite), <code>Hyperdrive</code>를 통한 <code>PlanetScale Postgres</code> 원클릭 연동까지 엣지 풀스택을 완성했습니다. (<a href="https://blog.cloudflare.com/sandbox-ga/">https://blog.cloudflare.com/sandbox-ga/</a>)</li>
+            <li>PlanetScale &amp; Convex: PlanetScale은 2025년 9월 <code>PlanetScale for Postgres</code> GA와 샤딩 솔루션 <code>Neki</code>를 내놓고 10월 $8천만($1B 가치) 투자를 받았습니다. Convex는 2025~2026년 총 $8,100만을 추가 조달하며 바이브 코딩 친화적 TypeScript 반응형 백엔드로 급부상했고, 내부 인프라는 PlanetScale Postgres를 사용합니다. (<a href="https://planetscale.com/blog/planetscale-for-postgres-is-generally-available">https://planetscale.com/blog/planetscale-for-postgres-is-generally-available</a>)</li>
+            <li>Railway · Render · Fly.io: 하이퍼스케일러 대안 PaaS들도 대규모 자금을 확보했습니다. Railway(2026.01 Series B $1억)는 사용량 기반 과금과 10분 비활성 서버리스 슬립을, Render(2026.02 $1억 추가 투자, 가치 $1.5B)는 시트 요금 없는 예측 가능한 플랜($0/$25/$499)을, Fly.io는 기본료 없이 전 세계 초당 과금 마이크로VM을 제공합니다.</li>
+            <li>Netlify &amp; AWS: Netlify는 AI 에이전트가 프로덕션 DB를 손상하지 못하도록 에이전트 전용 브랜치와 읽기 전용 프로덕션 API 가드레일을 내장한 <code>Netlify Database</code>를 선보였습니다. AWS는 서버리스 분산 SQL <code>Aurora DSQL</code>(2025.05 GA, MCP 지원)과 엔터프라이즈 에이전트 런타임 <code>Bedrock AgentCore</code>(2025.10 GA)로 대응하고 있습니다.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="stacks">
+        <h2>5. 목적별 실전 스택 조합 (2026년 기준)</h2>
+        <p class="caption">프로젝트 성격과 팀 규모에 따른 검증된 플랫폼 조합 가이드</p>
+        <ol class="steps">
+          <li>
+            <h3>1인 빌더 · 바이브 코딩 MVP (가장 빠른 출시)</h3>
+            <p>Vercel + Supabase (또는 Convex): v0/Cursor/Claude Code와 결합 시 프론트·인증·Postgres DB·MCP 연동까지 최소 설정으로 당일 배포 가능. 무료~월 $25~$45 구간에서 시작.</p>
+          </li>
+          <li>
+            <h3>자율 코딩·리서치 AI 에이전트 제품</h3>
+            <p>Vercel (<code>AI SDK 7</code> + <code>Workflows</code> + <code>Sandbox</code>) 또는 Cloudflare (<code>Agents SDK</code> + <code>Sandboxes</code>) + Turso / Neon: 에이전트 코드 격리 실행과 Active CPU 과금으로 대기 비용을 최소화하고, 세션별 경량 DB(Turso) 또는 브랜칭 DB(Neon)로 상태 격리.</p>
+          </li>
+          <li>
+            <h3>커스텀 AI 모델 추론 · 멀티모달 · RL 워크로드</h3>
+            <p>Modal + Vercel (또는 Next.js 웹 프론트): GPU 스냅샷 기반 초고속 콜드 스타트와 B200/H100/RDMA 클러스터를 담당하는 Modal을 백엔드 AI 엔진으로 두고, 웹 UI·게이트웨이는 Vercel로 분리.</p>
+          </li>
+          <li>
+            <h3>글로벌 초저지연 멀티테넌트 SaaS</h3>
+            <p>Cloudflare Workers + Turso (또는 D1 / PlanetScale via Hyperdrive): 엣지 컴퓨트와 사용자·테넌트별 초경량 SQLite 인스턴스를 결합해 지연시간과 유휴 비용을 극한으로 절감.</p>
+          </li>
+          <li>
+            <h3>규제 산업 · 엔터프라이즈 데이터/AI 거버넌스</h3>
+            <p>GCP (<code>Gemini Enterprise Agent Platform</code> + <code>Cloud Run</code> GPU + <code>Wiz</code>) 또는 Databricks Lakebase + Vercel BYOC(AWS): VPC·IAM·SSO·Zero Data Retention·Unity Catalog 거버넌스를 유지한 채 에이전트 앱 운영.</p>
+          </li>
+        </ol>
+      </section>
+
+      <hr class="divider">
+
+      <section id="sources">
+        <h2>6. 참고 출처</h2>
+        <ul class="links">
+          <li>
+            <a href="https://vercel.com/blog/vercel-ship-2026-recap">
+              <span class="link-title">Vercel: The AI Cloud &amp; Ship 2026 Recap</span>
+              <span class="link-meta">vercel.com · 2025.07 / 2026.10</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.businesswire.com/news/home/20250930898216/en/Vercel-Closes-Series-F-at-%249.3B-Valuation-to-Scale-the-AI-Cloud">
+              <span class="link-title">Vercel Closes Series F at $9.3B Valuation</span>
+              <span class="link-meta">BusinessWire · 2025.09.30</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://supabase.com/blog/series-f">
+              <span class="link-title">Supabase Series F ($500M at $10B) &amp; State of Startups 2026</span>
+              <span class="link-meta">supabase.com · 2026.06</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://supabase.com/blog/supabase-is-acquiring-turso">
+              <span class="link-title">Supabase Select 2026 Recap &amp; Acquiring Turso</span>
+              <span class="link-meta">supabase.com · 2026.10.02</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://modal.com/blog/1-billion-annualized-run-rate-series-d">
+              <span class="link-title">Modal Crosses $1B ARR and Raises $750M Series D ($15.75B)</span>
+              <span class="link-meta">modal.com · 2026.10.14</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up">
+              <span class="link-title">Google Cloud Next '26 Wrap Up &amp; Wiz Acquisition</span>
+              <span class="link-meta">cloud.google.com · 2026.03 / 2026.04</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://firebase.google.com/docs/studio/migrating-project">
+              <span class="link-title">Firebase Studio Sunset &amp; Antigravity Migration</span>
+              <span class="link-meta">firebase.google.com · 2026</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://neon.com/docs/introduction/neon-and-lakebase">
+              <span class="link-title">Neon &amp; Lakebase Postgres (Databricks Acquisition)</span>
+              <span class="link-meta">neon.com · 2025.05 / 2026.08</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://turso.tech/blog/turso-0.8.0">
+              <span class="link-title">Turso 0.8 Concurrent Writes &amp; Joining Supabase</span>
+              <span class="link-meta">turso.tech · 2026.10</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://blog.cloudflare.com/sandbox-ga/">
+              <span class="link-title">Cloudflare Sandboxes GA &amp; PlanetScale Postgres GA</span>
+              <span class="link-meta">blog.cloudflare.com · 2026.04 / 2025.09</span>
+            </a>
+          </li>
+        </ul>
+        <p class="colophon">이 문서를 조사하고 작성한 AI 모델: Grok 4.7</p>
+      </section>
+    </article>
+  </div>
+
+  <footer class="wrap site-footer">
+    <p>research · 2026 개발 플랫폼 트렌드 보고서</p>
+  </footer>
+  <a class="to-top" href="#top">맨 위로</a>
+  <script>
+    (function () {
+      var table = document.getElementById("platform-table");
+      var filter = "all";
+      var view = "summary";
+
+      function apply() {
+        table.setAttribute("data-view", view);
+        document.querySelectorAll("[data-filter]").forEach(function (button) {
+          button.setAttribute("aria-checked", button.getAttribute("data-filter") === filter ? "true" : "false");
+        });
+        document.querySelectorAll("[data-set-view]").forEach(function (button) {
+          button.setAttribute("aria-checked", button.getAttribute("data-set-view") === view ? "true" : "false");
+        });
+        table.querySelectorAll("tbody tr").forEach(function (row) {
+          row.hidden = !(filter === "all" || row.getAttribute("data-category") === filter);
+        });
+      }
+
+      document.querySelectorAll("[data-filter]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          filter = button.getAttribute("data-filter");
+          apply();
+        });
+      });
+      document.querySelectorAll("[data-set-view]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          view = button.getAttribute("data-set-view");
+          apply();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
