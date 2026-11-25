@@ -1,6 +1,16 @@
 {
   "reports": [
     {
+      "title": "2026 GIS·지도 플랫폼 기술 트렌드 보고서",
+      "summary": "2025년 말부터 2026년 11월까지 GIS·지도 플랫폼 업계의 핵심 변화를 정리했습니다. OGC·Apache Parquet/Iceberg·GeoParquet 2.0 등 신규 표준, 지구관측 파운데이션 모델과 MCP 기반 GeoAI, 3D Gaussian Splatting, 그리고 QGIS 4.0·GDAL·DuckDB를 중심으로 한 FOSS4G 동향을 다룹니다.",
+      "category": "gis",
+      "categoryLabel": "GIS·지도",
+      "date": "2026-11-25",
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "href": "gis/2026/11/gis-map-platform-trends/"
+    },
+    {
       "title": "2026 개발 플랫폼 트렌드 보고서",
       "summary": "2025년부터 2026년 11월까지 AI 에이전트와 바이브 코딩의 확산이 촉발한 개발 플랫폼 지각 변동을 정리했습니다. Vercel, Supabase, Modal, GCP, Neon, Turso 등 핵심 플랫폼의 기술·가격·M&A 동향과 실전 스택 조합을 한눈에 비교합니다.",
       "category": "dev",
